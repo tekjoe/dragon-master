@@ -7,7 +7,6 @@ export default class HeroListItem extends Component {
 
   mouseOver = e => {
     this.setState({ isHovered: true });
-    // let className = e.currentTarget.children[1].innerHTML;
   };
 
   mouseOut = e => {
@@ -15,17 +14,19 @@ export default class HeroListItem extends Component {
   };
 
   render() {
-    const { heroClass } = this.props;
+    const { heroClass, description } = this.props;
     return (
       <button
-        className={`hero-grid__item ${
-          this.state.isHovered ? "hero-grid__item-hovered" : ""
-        }`}
-        onMouseOut={this.mouseOut}
-        onMouseOver={this.mouseOver}
+        className="hero-grid__item"
+        onClick={() => this.props.addHero(heroClass)}
       >
         <img src={`/images/${heroClass}.png`} alt="" />
-        <h2>{heroClass}</h2>
+        <span className={this.state.isHovered ? "tooltip-hovered" : "tooltip"}>
+          {description}
+        </span>
+        <h2 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+          {heroClass} ℹ️
+        </h2>
       </button>
     );
   }
